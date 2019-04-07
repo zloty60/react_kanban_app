@@ -1,0 +1,77 @@
+@import "./../../styles/breakPoint.scss";
+
+$menu-bg: #004280;
+$menu-link: #f1f1f1;
+$menu-link-active: #ffffff;
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $menu-bg;
+  box-shadow: 0px 1px 5px -1px rgba(36, 36, 36, 1);
+  z-index: 1;
+  @include breakPoint(m) {
+    top: 0;
+    bottom: auto;
+  }
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 55px;
+  margin: 0;
+  @include breakPoint(m) {
+    height: 62px;
+    justify-content: space-around;
+  }
+}
+
+.list button {
+  background-color: transparent;
+  font-size: 15px;
+}
+
+.link {
+  color: $menu-link;
+  height: 20px;
+  font-size: 15px;
+}
+
+.linkActive {
+  color: $menu-link-active;
+  border-bottom: 1px solid;
+  padding-bottom: 7px;
+  transition: border-bottom 0.3s ease-in-out, padding-bottom 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+.searchList {
+  position: fixed;
+  bottom: 65px;
+  left: 0;
+  right: 0;
+}
+
+.search {
+  padding: 7px 10px;
+}
+
+.searchIcon {
+  width: 17px;
+  display: block;
+  color: #fff;
+  @include breakPoint(m) {
+    display: none;
+  }
+}
+
+.searchTxt {
+  display: none;
+  @include breakPoint(m) {
+    display: block;
+  }
+}
