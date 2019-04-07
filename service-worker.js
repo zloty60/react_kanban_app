@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react_kanban_app/precache-manifest.8ab78592308ec5bde56f8ec4de74f7aa.js"
+  "/https://zloty60.github.io/react_kanban_app/precache-manifest.266a120bd2449787ce87f0b36ef224fb.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/react_kanban_app/index.html", {
+workbox.routing.registerNavigationRoute("/https://zloty60.github.io/react_kanban_app/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
