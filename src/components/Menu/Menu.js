@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styles from "./Menu.module.scss";
 import searchIcon from "./../../assets/icon/search.svg";
 
-const Menu = ({ openModalFn, openSearchFormFn }) => {
+const Menu = ({ openAddModalFn, openSearchdModalFn }) => {
   return (
     <header className={styles.wrapper}>
       <nav className="container">
@@ -18,7 +18,7 @@ const Menu = ({ openModalFn, openSearchFormFn }) => {
                   activeClassName={styles.linkActive}
                   className={styles.link}
                 >
-                  do zrobionia
+                  do zrobienia
                 </NavLink>
               </li>
               <li>
@@ -42,12 +42,12 @@ const Menu = ({ openModalFn, openSearchFormFn }) => {
                 </NavLink>
               </li>
               <li>
-                <button onClick={openModalFn} className={styles.btn}>
+                <button onClick={openAddModalFn} className={styles.btn}>
                   dodaj
                 </button>
               </li>
               <li>
-                <button onClick={openSearchFormFn} className="">
+                <button onClick={openSearchdModalFn} className="">
                   <span className={styles.searchTxt}>szukaj</span>
                   <img
                     src={searchIcon}
@@ -65,8 +65,8 @@ const Menu = ({ openModalFn, openSearchFormFn }) => {
 };
 
 Menu.propTypes = {
-  openModalFn: PropTypes.func,
-  openSearchFormFn: PropTypes.func
+  openAddModalFn: PropTypes.func,
+  openSearchdModalFn: PropTypes.func
 };
 
 export default Menu;

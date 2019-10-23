@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./OnlyViewTask.module.scss";
+import PropTypes from "prop-types";
 
 const OnlyViewTask = ({ title, type }) => {
   return (
@@ -10,6 +11,11 @@ const OnlyViewTask = ({ title, type }) => {
       </div>
     </div>
   );
+};
+
+OnlyViewTask.propTypes = {
+  title: PropTypes.string,
+  type: PropTypes.string
 };
 
 export default OnlyViewTask;

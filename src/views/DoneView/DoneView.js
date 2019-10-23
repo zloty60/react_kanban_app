@@ -1,11 +1,22 @@
 import React from "react";
-import AppContext from "../../context";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import ListTasks from "./../../components/Tasks/ListTasks/ListTasks";
+import useFilterTypeTask from "./../../hooks/useFilterTypeTask";
+import PropTypes from "prop-types";
 
-const DoneView = () => (
-  <AppContext.Consumer>
-    {context => <ListTasks tasks={context.filterTypeTaskFn("done")} />}
-  </AppContext.Consumer>
-);
+function DoneView({ tasks }) {
+  return <ListTasks tasks={useFilterTypeTask(tasks, "done")} />;
+}
 
-export default DoneView;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasksReducer.tasks
+  };
+};
+
+DoneView.propTypes = {
+  tasks: PropTypes.array
+};
+
+export default withRouter(connect(mapStateToProps)(DoneView));

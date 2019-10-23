@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import OnlyViewTask from "./../../components/Tasks/ListTasks/Task/OnlyViewTask";
 import styles from "./AddTask.module.scss";
 import CloseButton from "./../buttons/closeButton/CloseButton";
+import useSetUniqueId from "./../../hooks/useSetUniqueId";
+import { createTask, closeAddModal } from "./../../redux/actions/actions";
+import useCompare from "./../../hooks/useCompare";
 
 const types = {
   todo: "todo",
@@ -34,18 +38,12 @@ class Modal extends Component {
     });
   };
 
-  handleBtn = () => {
+  handleAddTaskBtn = () => {
     const { title, type, description } = this.state;
-    let maxId;
-    if (this.props.tasks.length > 0) {
-      maxId = Math.max(...this.props.tasks.map(item => item.id));
-      maxId++;
-    } else {
-      maxId = 0;
-    }
-
     if (title !== "" && type !== "" && description !== "") {
-      this.props.addTaskFn(maxId, title, type, description);
+      const id = useSetUniqueId(this.props.tasks);
+      this.props.createTask(id, title, type, description);
+      this.props.closeAddModal();
     } else {
       this.setState({
         validAlert: true
@@ -53,21 +51,9 @@ class Modal extends Component {
     }
   };
 
-  sortHighestId = () => {
+  showLastTask = () => {
     const arr = [...this.props.tasks];
-
-    function compare(a, b) {
-      let comparison = 0;
-      a = a.id;
-      b = b.id;
-      if (a > b) {
-        comparison = 1;
-      } else if (a < b) {
-        comparison = -1;
-      }
-      return comparison * -1;
-    }
-    return arr.sort(compare);
+    return arr.sort(useCompare("id", "MAX"));
   };
 
   render() {
@@ -143,7 +129,7 @@ class Modal extends Component {
                       <div className="col-m-12">
                         <button
                           type="button"
-                          onClick={this.handleBtn}
+                          onClick={this.handleAddTaskBtn}
                           className={styles.btnAdd}
                         >
                           dodaj
@@ -161,7 +147,7 @@ class Modal extends Component {
               >
                 <div className="row">
                   <h2 className="col-m-12">Ostatnio dodane zadania</h2>
-                  {this.sortHighestId()
+                  {this.showLastTask()
                     // jezeli szerokosc urządzenia wieksza niz 1100px to wyswietl 6 taskow
                     .slice(0, window.innerWidth > 1100 ? 6 : 4)
                     .map(el => {
@@ -171,8 +157,7 @@ class Modal extends Component {
               </div>
             </div>
           </div>
-
-          <CloseButton closeFn={this.props.closeModalFn} />
+          <CloseButton closeFn={this.props.closeAddModal} />
         </div>
       </>
     );
@@ -180,9 +165,18 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  closeModalFn: PropTypes.func,
-  tasks: PropTypes.array,
-  addTaskFn: PropTypes.func
+  closeAddModal: PropTypes.func,
+  createTask: PropTypes.func,
+  tasks: PropTypes.array
 };
 
-export default Modal;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasksReducer.tasks
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { closeAddModal, createTask }
+)(Modal);

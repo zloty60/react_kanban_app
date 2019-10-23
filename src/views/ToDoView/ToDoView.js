@@ -1,11 +1,22 @@
 import React from "react";
-import AppContext from "../../context";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import ListTasks from "./../../components/Tasks/ListTasks/ListTasks";
+import useFilterTypeTask from "./../../hooks/useFilterTypeTask";
+import PropTypes from "prop-types";
 
-const ToDoView = () => (
-  <AppContext.Consumer>
-    {context => <ListTasks tasks={context.filterTypeTaskFn("todo")} />}
-  </AppContext.Consumer>
-);
+function ToDoView({ tasks }) {
+  return <ListTasks tasks={useFilterTypeTask(tasks, "todo")} />;
+}
 
-export default ToDoView;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasksReducer.tasks
+  };
+};
+
+ToDoView.propTypes = {
+  tasks: PropTypes.array
+};
+
+export default withRouter(connect(mapStateToProps)(ToDoView));

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import AppContext from "./../../../../context";
 import style from "./EditTask.module.scss";
+import {
+  confirmTask,
+  canceEditTask
+} from "./../../../../redux/actions/actions";
 
 class EditTask extends Component {
   state = {
@@ -41,7 +46,7 @@ class EditTask extends Component {
         />
         <button
           onClick={() =>
-            this.context.confirmEditTaskFn(
+            this.props.confirmTask(
               this.props.id,
               this.state.title,
               this.state.description
@@ -51,7 +56,10 @@ class EditTask extends Component {
         >
           zatwierdz
         </button>
-        <button onClick={this.handleCancel} className={style.cancelBtn}>
+        <button
+          onClick={() => this.props.canceEditTask(this.props.id)}
+          className={style.cancelBtn}
+        >
           anuluj
         </button>
       </div>
@@ -61,4 +69,7 @@ class EditTask extends Component {
 
 EditTask.contextType = AppContext;
 
-export default EditTask;
+export default connect(
+  null,
+  { confirmTask, canceEditTask }
+)(EditTask);
