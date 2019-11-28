@@ -1,84 +1,69 @@
-export function openAddModal() {
+export function deleteBoard(boardName) {
   return {
-    type: "OPEN_ADD_MODAL"
+    type: "DELETE_BOARD",
+    payload: boardName
   };
 }
 
-export function closeAddModal() {
+export function changeBoardName(name, newName) {
   return {
-    type: "CLOSE_ADD_MODAL"
-  };
-}
-
-export function openSearchdModal() {
-  return {
-    type: "OPEN_SEARCH_MODAL"
-  };
-}
-
-export function closeSearchModal() {
-  return {
-    type: "CLOSE_SEARCH_MODAL"
-  };
-}
-
-export function toggleIsOptionsView(id) {
-  return {
-    type: "TOGGLE_OPTION_VIEW",
-    payload: id
-  };
-}
-
-export function deleteTask(id) {
-  return {
-    type: "DELETE_TASK",
-    payload: id
-  };
-}
-
-export function editTask(id) {
-  return {
-    type: "EDIT_TASK",
-    payload: id
-  };
-}
-
-export function confirmTask(id, title, description) {
-  return {
-    type: "CONFIRM_TASK",
+    type: "CHANGE_BOARD_NAME",
     payload: {
-      id,
-      title,
-      description
+      name,
+      newName
     }
   };
 }
 
-export function canceEditTask(id) {
+export function createBoard(name) {
   return {
-    type: "CANCEL_EDIT_TASK",
-    payload: id
+    type: "ADD_BOARD",
+    payload: name
   };
 }
 
-export function changeTypeTask(id, type) {
-  return {
-    type: "CHANGE_TYPE_TASK",
-    payload: {
-      id,
-      type
-    }
-  };
-}
-
-export function createTask(id, title, type, description) {
+export function createTask(boardName, id, title, type, description) {
   return {
     type: "CREATE_TASK",
     payload: {
+      boardName,
       id,
       title,
       type,
       description
+    }
+  };
+}
+
+export function deleteTask(boardName, id) {
+  return {
+    type: "DELETE_TASK",
+    payload: {
+      boardName,
+      id
+    }
+  };
+}
+
+export function editTask(boardName, id, title, description) {
+  return {
+    type: "EDIT_TASK",
+    payload: {
+      boardName,
+      id,
+      title,
+      description
+    }
+  };
+}
+
+export function changeTypeTask(boardName, id, type) {
+  return {
+    type: "CHANGE_TYPE_TASK",
+    payload: {
+      boardName,
+      id,
+      type
     }
   };
 }

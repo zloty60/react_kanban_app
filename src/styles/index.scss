@@ -1,8 +1,5 @@
 @import "normalize.css";
-@import "breakPoint.scss";
-@import "container.scss";
-@import "grid.scss";
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap&subset=latin-ext");
 
 *,
 *::after,
@@ -16,33 +13,11 @@ html {
 
 body {
   min-height: calc(100vh - 56px);
-  background: #212121;
+  background: #121212;
   margin-bottom: 56px;
 }
 
 a {
   text-decoration: none;
   color: #000;
-}
-
-li {
-  list-style: none;
-}
-
-ul {
-  padding: 0;
-}
-
-button {
-  border: none;
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-}
-
-input,
-textarea {
-  border: none;
-  display: block;
-  width: 100%;
 }

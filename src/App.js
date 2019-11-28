@@ -1,52 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import ToDoView from "./views/ToDoView/ToDoView";
-import DoingView from "./views/DoingView/DoingView";
-import DoneView from "./views/DoneView/DoneView";
-import ErrorView from "./views/ErrorView/ErrorView";
-import Menu from "./components/Menu/Menu";
-import Main from "./components/Main/Main";
-import { openAddModal, openSearchdModal } from "./redux/actions/actions";
-import AddTask from "./components/AddTask/AddTask";
-import Search from "./components/Search/Search";
+import ErrorView from "./views/ErrorView";
+import Main from "./components/layout/Main";
+import AppContextProvider from "./contexts/AppContext";
+import Navbar from "./components/layout/Navbar";
+import Search from "./components/layout/Search";
+import BoardsView from "./views/BoardsView";
+import TaskViewContainer from "./views/TaskViewContainer";
+import InfoView from "./views/InfoView";
 
-function App({
-  isAddModalOpen,
-  openAddModal,
-  openSearchdModal,
-  isSearcModalhOpen
-}) {
+function App({ boards }) {
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const [navbarTitle, setNavbarTitle] = useState("");
+
   return (
     <HashRouter>
-      <>
-        <Menu
-          openAddModalFn={openAddModal}
-          openSearchdModalFn={openSearchdModal}
-        />
+      <AppContextProvider value={{ navbarTitle, setNavbarTitle }}>
+        <Navbar setIsOpenSearch={setIsOpenSearch} />
         <Main>
           <Switch>
-            <Route exact path="/" component={ToDoView} />
-            <Route path="/doing" component={DoingView} />
-            <Route path="/done" component={DoneView} />
+            <Route exact path="/" component={BoardsView} />
+            <Route exact path="/tablice/:name" component={TaskViewContainer} />
+            <Route exact path="/informacje" component={InfoView} />
             <Route component={ErrorView} />
           </Switch>
         </Main>
-        {isAddModalOpen && <AddTask />}
-        {isSearcModalhOpen && <Search />}
-      </>
+        <Search
+          setIsOpenSearch={setIsOpenSearch}
+          isOpenSearch={isOpenSearch}
+          boards={boards}
+        />
+      </AppContextProvider>
     </HashRouter>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    isAddModalOpen: state.layout.isAddModalOpen,
-    isSearcModalhOpen: state.layout.isSearcModalhOpen
+    boards: state.AppReducer.boards
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { openAddModal, openSearchdModal }
-)(App);
+export default connect(mapStateToProps)(App);

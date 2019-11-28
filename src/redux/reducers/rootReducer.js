@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import tasksReducer from "./tasksReducer";
-import layout from "./layout";
+import AppReducer from "./AppReducer";
 
-export default combineReducers({ tasksReducer, layout });
+export default combineReducers({ AppReducer });
